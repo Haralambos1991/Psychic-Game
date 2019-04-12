@@ -29,4 +29,19 @@ var updateGuessesSoFar = function() {
 // Function will be called when we reset everything //
 
 var reset = function() {
+guessesLeft = 9;
+guessedLetters = [];
+updateGuessesLeft();
+updateGuessesSoFar();
+};
 
+//Execute on page load. //
+updateLetterToGuess();
+updateGuessesLeft();
+
+//This function will capture the keyboards clicks//
+document.onkeydown = function(event) {
+    // Right now its gonna reduce guessesLeft by one //
+    guessesLeft--;
+
+    
