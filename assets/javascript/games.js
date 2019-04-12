@@ -44,4 +44,27 @@ document.onkeydown = function(event) {
     // Right now its gonna reduce guessesLeft by one //
     guessesLeft--;
 
-    
+    // Lowercase the letter
+    var letter = String.fromCharCode(event.which).toLowerCase();
+
+    // Then add the guess to the guessedLetters array
+    guessedLetters.push(letter);
+
+    //Then its going to run the update functions
+    updateGuessesLeft();
+    updateGuessesSoFar();
+
+    // We will check if there is a match //
+    if (letter === letterToGuess) {
+     
+    // If there is, then we win and we will update the HTML //
+    wins++;
+    document.querySelector("#wins").innerHTML = wins;
+
+    // Then i will reset the game //
+    reset();
+    }
+
+  // If we are out of guesses...
+  if (guessesLeft === 0)  {
+
