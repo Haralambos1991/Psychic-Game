@@ -8,10 +8,25 @@ var letterToGuess = null;
 var wins = 0;
 var loses = 0;
 
+// Below we have created 3 functions in order to update the guess //
 
+var updateGuessesLeft = function() {
+// Here we are grabing the html element and setting it equal to the guessesLeft
 
+document.querySelector("#guesses-left").innerHTML = guessesleft;
+};
 
-    
+var updateLetterToGuess = function() {
+// Here we get a random letterToGuess and assign it based on a random generator
 
+lettersToGuess = letters[Math.floor(Math.random() * letters.length)]
+};
 
+var updateGuessesSoFar = function() {
+ // Here we take the guess the user has tried //
+ document.querySelector("#guesses-so-far").innerHTML = guessedLetters.join(",");   
+};
+// Function will be called when we reset everything //
+
+var reset = function() {
 
