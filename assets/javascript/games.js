@@ -1,105 +1,43 @@
 var wins = 0;
 var losses = 0;
-var guessesLeft = 9;
-var yourGuess = []; 
-var computerChoice;
+var guessesleft = 9
+var guessesSoFar = []; 
+var ComputerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
 
-
-
-//to initiate the game
-theGame();
-
-
-function theGame() {
-	//letter randomizer
-	var alphabet = "abcdefghijklmnopqrstuvwxyz";
-	var randomLetter = alphabet[Math.floor(Math.random() * 26)];
-	var computerChoice = randomLetter;
-
-	console.log(computerChoice); //test
-		
-	checkIfCorrect();
-
-	function checkIfCorrect() {
-
-		document.onkeyup = function(event) {
-
-			//turns user's unicode into corresponding alphanumeric key,
-			//then turns it into a lowercase string.
-			var userChoice = String.fromCharCode(event.keyCode).toLowerCase();
-
-
-			//if statement to prevent user from choosing a key that's not part of
-			//the alphabet. a = unicode 65, z = unicode 90.
-			if (event.keyCode < 65 || event.keyCode > 90) {
-				alert("Invalid Entry");
-
-			//else/if statement to stop user from guess a letter they already guessed
-			//and to stop the guesses counter from being deducted for a previous guess
-			} else if (yourGuess.indexOf(userChoice) >=0) {
-				alert("You already guessed that!");
-
-			//if the user guesses correctly
-			} else if (userChoice === computerChoice) {
-				console.log("You win."); //test
-				
-				//switches still image of black box to animated gif of light bulb flashing
-				document.getElementById("image-here").setAttribute("src", "assets/images/light-bulb.gif");
-				
-				//setTimeout() delays a block of code for x seconds (written in milliseconds). 
-				//in this case it will delay the You win! alert for 3 seconds, allowing the gif animation to cycle through. 
-				setTimeout(function(){alert("You win!");}, 3000);
-				wins = wins + 1;
-				document.getElementById("your-wins").innerHTML = wins;
-
-				//this delays the reset of the black box image
-				setTimeout(function(){document.getElementById("image-here").setAttribute("src", "assets/images/black-box.png");}, 3000);
-
-				resetGame();
-
-
-			//if the user guesses wrong...
-			} else {
-				guessesLeft = guessesLeft - 1;
-				
-				document.getElementById("guesses-left").innerHTML = guessesLeft; 
-				yourGuess.push(userChoice); //append user's choice to array yourGuess
-
-				console.log("Your guesses so far: " + yourGuess); //test
-
-				document.getElementById("your-guesses").innerHTML = yourGuess;
-
-				console.log("Guesses Left: " + guessesLeft); //test
-
-				noGuessesLeft();
-			}
-		}
-	}
-
-	function resetGame() {
-		guessesLeft = 9; //reset variable
-		yourGuess = [];  //reset array so it's empty
-		document.getElementById("guesses-left").innerHTML = guessesLeft;  //reset display on screen
-		document.getElementById("your-guesses").innerHTML = yourGuess;    //reset display on screen
-		theGame(); //restart the game with new computerChoice.
-
-	}
-
-	function noGuessesLeft() {
-		if (guessesLeft === 0) {
-			console.log("YOU LOSE."); //test
-			alert("YOU LOSE!");
-			losses = losses + 1
-			document.getElementById("your-losses").innerHTML = losses;
-
-			resetGame();
-
-		} else {
-			console.log("Incorrect. Try again"); //test
-			checkIfCorrect();
-		}
-
-	}
-
-}
-
+document.onkeyup = function(event) {
+    var userGuess = String.fromCharCode(event.keyCode).toLowerCase(); //taking in user guess
+    var computerGuess = computerChoices[Math.floor(Math.random()*computerChoices.length)]; //computer selects random letter
+    guessesSoFar.push(userGuess); //pushing user guess to guesses so far
+    if (userGuess == computerGuess) {
+        wins++;
+        alert('Way to go! You\'ve guesesed corrrectly. You Won!');
+        guessesLeft = 9; //reseting the guesses back to 9 so that the user can play again
+        guessesSoFar.length = 0; //this removes everything from the guesses so far array, so that the guesses from the previous round don't show
+    }
+    else if (guessesLeft == 0){
+        losses++;
+        alert('You didn\'t guess the correct letter. You lost. Let\'s try again.');
+        guessesLeft = 9;
+        guessesSoFar.length = 0;
+    }
+    else if (userGuess !== computerGuess){
+        guessesLeft--; //decrementing the guesses left
+    }  
+    // Taking the tallies and displaying them in HTML    
+    var html = "<h1>The Psychic Game</h1>" + 
+    "<p>Guess what letter I'm thinking of!</p>" +
+    "<p>Total Wins: " + 
+    wins + 
+    "</p>" +
+    "<p>Total Losses: " + 
+    losses + 
+    "</p>" +
+    "<p>Guesses Left: " + 
+    guessesLeft + 
+    "</p>" +
+    "<p>Your Guesses so far: " +
+    guessesSoFar +
+    "</p>"
+    ;
+    // Placing the html into the game ID
+    document.querySelector('#game').innerHTML = html;
