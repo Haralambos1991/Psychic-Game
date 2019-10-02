@@ -83,4 +83,30 @@ function showLettersGuessed() {
 function guessMatch(character) {
 	console.log(character);
 	console.log(computerGuess);
+
+	if (character === computerGuess) {
+		alert("You win!");
+		wins = wins + 1;
+		showWins();
+
+		//toggle Game //
+	} else if (guessesleft === 0) {
+		alert("Aw man, lets start over!.");
+		resetVariables();
+	} else {
+		guessesLeft = guessesleft - 1;
+		showGuessesRemaining();
+	}
+}
+
+// function to show wins //
+
+function showWins() {
+	document.getElementById("numWins").innerHTML = wins;
+}
+
+// function to show guesses remaining //
+
+function showGuessesRemaining() {
+	document.getElementById("numGuesses").innerHTML = guessesLeft;
 }
