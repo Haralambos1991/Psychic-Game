@@ -1,0 +1,26 @@
+body {
+	background: black;
+	font-family: roboto;
+	text-align: center;
+}
+
+h1 {
+	font-size: 40px;
+	color: blueviolet;
+	margin: 45px 0;
+}
+
+img {
+	margin-top: -40px;
+	height: 200px;
+	width: -200px;
+}
+
+p {
+	color: white;
+	font-size: 27px;
+	color: blue;
+}
+input {
+	color: red;
+}
