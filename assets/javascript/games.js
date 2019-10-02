@@ -56,6 +56,31 @@ window.onload = function() {
 
 		if (repeatGuess) {
 			alert(userKeypress + " already guessed. Try again!");
+
+			// If its not a repeat guessed, check if its in the word
+		} else {
+			lettersGuessed.push(usersKeypress);
+			console.log(lettersGuessed);
+
+			// This will show users input in the browser //
+
+			showLettersGuessed();
+			// is user's input a match to the computer
+
+			guessMatch(usersKeypress);
 		}
 	}
 };
+
+// Right now i will create a function to show the letters guessed in the browser //
+
+function showLettersGuessed() {
+	var tempStr = lettersGuessed.join(", ");
+
+	document.getElementById("playersGuess").innerHTML = tempStr;
+}
+
+function guessMatch(character) {
+	console.log(character);
+	console.log(computerGuess);
+}
