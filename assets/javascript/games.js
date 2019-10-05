@@ -33,19 +33,24 @@ var loses = 0;
 var guessesLeft = 10;
 var lettersGuessed = [];
 
-window.onload = function() {
+// document.onkeydown = function(event) {
+document.addEventListener("keydown", function(event) {
+	var keyPress = String.fromCharCode(event.KeyCode).toLowerCase();
+	// addLetter = keyPress;
+	handleKeypress(event.key);
+});
+
+function handleKeypress(key) {
+	console.log("key", key);
+}
+
+computerGuess = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z) {
 	var computerGuess = String.fromCharCode[Math.floor(Math.random).computerChoices.length];
 	computerGuess.push(computerGuess);
 
 	console.log(computerGuess);
 
 	// Function to capture user's keyboard input //
-
-	document.onkeydown = function(event) {
-		var keyPress = String.fromCharCode(event.KeyCode).toLowerCase();
-
-		addLetter = keypress;
-	};
 
 	// Function to catch repeatLetters
 
@@ -74,7 +79,7 @@ window.onload = function() {
 
 // Right now i will create a function to show the letters guessed in the browser //
 
-function showLettersGuessed() {
+function showLettersGuessed(key) {
 	var tempStr = lettersGuessed.join(", ");
 
 	document.getElementById("playersGuess").innerHTML = tempStr;
@@ -101,12 +106,25 @@ function guessMatch(character) {
 
 // function to show wins //
 
-function showWins() {
+function showWins(key) {
 	document.getElementById("numWins").innerHTML = wins;
 }
 
 // function to show guesses remaining //
 
-function showGuessesRemaining() {
-	document.getElementById("numGuesses").innerHTML = guessesLeft;
+function showGuessesRemaining(key) {
+	var game = document.getElementById("game");
+	//game.innerHTML = JSON.stringify(showGuessesRemaining);
 }
+
+function resetVariables(key) {
+	lettersGuessed = [];
+	guessesLeft = 10;
+}
+
+function startGame(key) {
+	showGuessesRemaining();
+	showWins();
+}
+
+startGame();
