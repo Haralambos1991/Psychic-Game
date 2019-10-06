@@ -42,11 +42,12 @@ document.addEventListener("keydown", function(event) {
 
 function handleKeypress(key) {
 	console.log("key", key);
+
+	computerGuess(key);
 }
 
-computerGuess = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z) {
-	var computerGuess = String.fromCharCode[Math.floor(Math.random).computerChoices.length];
-	computerGuess.push(computerGuess);
+const computerGuess = function(letter) {
+	var computerGuessString = computerChoices[Math.floor(Math.random() * computerChoices.length)];
 
 	console.log(computerGuess);
 
@@ -54,17 +55,17 @@ computerGuess = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s
 
 	// Function to catch repeatLetters
 
-	function addLetter(usersKeypress) {
+	function addLetter(userskeyPress) {
 		var repeatGuess = lettersGuessed.some(function(item) {
-			return item === usersKeypress;
+			return item === userskeyPress;
 		});
 
 		if (repeatGuess) {
-			alert(userKeypress + " already guessed. Try again!");
+			alert(userskeyPress + " already guessed. Try again!");
 
 			// If its not a repeat guessed, check if its in the word
 		} else {
-			lettersGuessed.push(usersKeypress);
+			lettersGuessed.push(userskeyPress);
 			console.log(lettersGuessed);
 
 			// This will show users input in the browser //
@@ -72,59 +73,60 @@ computerGuess = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s
 			showLettersGuessed();
 			// is user's input a match to the computer
 
-			guessMatch(usersKeypress);
+			guessMatch(userskeyPress, computerGuessString);
 		}
 	}
+	addLetter(letter);
 };
 
 // Right now i will create a function to show the letters guessed in the browser //
 
-function showLettersGuessed(key) {
+function showLettersGuessed() {
 	var tempStr = lettersGuessed.join(", ");
 
 	document.getElementById("playersGuess").innerHTML = tempStr;
 }
 
-function guessMatch(character) {
+function guessMatch(character, guessString) {
 	console.log(character);
-	console.log(computerGuess);
+	console.log(guessString);
 
-	if (character === computerGuess) {
+	if (character === guessString) {
 		alert("You win!");
 		wins = wins + 1;
 		showWins();
 
 		//toggle Game //
-	} else if (guessesleft === 0) {
+	} else if (guessesLeft === 0) {
 		alert("Aw man, lets start over!.");
 		resetVariables();
 	} else {
-		guessesLeft = guessesleft - 1;
+		guessesLeft = guessesLeft - 1;
 		showGuessesRemaining();
 	}
-}
 
-// function to show wins //
+	// function to show wins //
 
-function showWins(key) {
-	document.getElementById("numWins").innerHTML = wins;
-}
+	function showWins() {
+		document.getElementById("numWins").innerHTML = wins;
+	}
 
-// function to show guesses remaining //
+	// function to show guesses remaining //
 
-function showGuessesRemaining(key) {
-	var game = document.getElementById("game");
-	//game.innerHTML = JSON.stringify(showGuessesRemaining);
-}
+	function showGuessesRemaining() {
+		var numGuesses = document.getElementById("numGuesses");
+		numGuesses.innerHTML = guessesLeft;
+	}
 
-function resetVariables(key) {
-	lettersGuessed = [];
-	guessesLeft = 10;
-}
+	function resetVariables() {
+		lettersGuessed = [];
+		guessesLeft = 10;
+	}
 
-function startGame(key) {
-	showGuessesRemaining();
-	showWins();
+	function startGame(key) {
+		showGuessesRemaining();
+		showWins();
+	}
 }
 
 startGame();
